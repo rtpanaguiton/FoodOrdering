@@ -1,24 +1,26 @@
 import { StyleSheet, Image } from "react-native";
 
 import { Text, View } from "@/src/components/Themed";
-import products from "@/assets/data/products";
-import ProductListItem from "@/src/components/ProductListItem";
 
-export default function MenuScreen() {
+const ProductListItem = ({ product }: any) => {
   return (
-    <View>
-      <ProductListItem product={products[0]} />
-      <ProductListItem product={products[1]} />
+    <View style={styles.container}>
+      <Image source={{ uri: product.image }} style={styles.image} />
+      <Text style={styles.title}>{product.name}</Text>
+      <Text style={styles.price}>${product.price}</Text>
     </View>
   );
-}
+};
+
+export default ProductListItem;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 10,
     backgroundColor: "white",
+    justifyContent: "center",
     borderRadius: 20,
-    marginVertical: 10,
+    marginBottom: 10,
   },
   title: {
     fontSize: 18,
