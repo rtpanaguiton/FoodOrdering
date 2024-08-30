@@ -1,14 +1,28 @@
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Pressable } from "react-native";
 
 import { Text, View } from "@/src/components/Themed";
+import { Product } from "@/types";
+import { Link } from "expo-router";
 
-const ProductListItem = ({ product }: any) => {
+export const defaultPizzaImage =
+  "https://images.summitmedia-digital.com/spotph/images/2017/11/21/Amare-18.jpg";
+
+type ProductListItemProps = {
+  product: Product;
+};
+
+const ProductListItem = ({ product }: ProductListItemProps) => {
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: product.image }} style={styles.image} />
-      <Text style={styles.title}>{product.name}</Text>
-      <Text style={styles.price}>${product.price}</Text>
-    </View>
+    <Link href={`/${product.id}`} asChild>
+      <Pressable style={styles.container}>
+        <Image
+          source={{ uri: product.image || defaultPizzaImage }}
+          style={styles.image}
+        />
+        <Text style={styles.title}>{product.name}</Text>
+        <Text style={styles.price}>${product.price}</Text>
+      </Pressable>
+    </Link>
   );
 };
 
@@ -16,11 +30,10 @@ export default ProductListItem;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    flex: 1,
+    alignItems: "center",
     backgroundColor: "white",
     justifyContent: "center",
-    borderRadius: 20,
-    marginBottom: 10,
   },
   title: {
     fontSize: 18,
@@ -34,6 +47,11 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     aspectRatio: 1,
+    resizeMode: "contain",
+  },
+  description: {
+    fontSize: 12,
+    color: "gray",
   },
   text: {
     fontSize: 16,
